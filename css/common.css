@@ -1,0 +1,134 @@
+@charset 'utf-8';
+
+
+/* 폰트설정하기 */
+body {font-family: '맑은 고딕','Malgun Gothic','돋움','dotum',Arial,'Apple SD Gothic Neo',sans-serif;font-size: 16px;font-weight: 500; line-height: 1.9;color: #808080;}
+
+
+/* 초기화 */
+
+body,ul,ol,li,h1,h2,h3,h4,h5,h6,p,fieldset {margin: 0; padding: 0;}
+ul,ol,li{list-style: none;}
+img{vertical-align: middle;} 
+a {text-decoration: none;color: inherit;}
+fieldset{border: 0;}
+button{border: 0;  cursor: pointer;}
+legend {display: block; width: 0; height: 0;overflow: hidden;text-indent: -9999px;}
+
+/* 공통레이아웃 */
+.headArea , .footArea, .inner {width: 1168px;margin: 0 auto; }
+.headArea::after {display: block;clear: both;content: "";}
+/* 헤더영역*/
+.header {position: fixed;left: 0;top: 0;width: 100%;z-index: 9999;background-color: #fff;}
+/* position 을 fixed로 했다는 것은 어디에 고정했느냐, 어디를 기준인지 써줘야함.position 을주면 width가 auto가 됨 따라서 100%써줘야함 */
+.header::before {position: absolute;content: "";left: 0;top: 80px;width: 100%;height: 1px;background-color:lightgray;}
+.header.open{height: 480px;}
+.header .hLogo {float: left; padding-top: 18px;}
+/* float는 윗선에 딱붙어서 정렬이 됨.따라서 margin top 또는 padding top을 줘야함  */
+.header .hLogo a {}
+.header .hLogo img {height: 45px;}
+.header .hMenu {float: left;margin-left: 130px;}
+.header .hMenu .menu .depth1::after{display: block;clear: both;content: "";}
+.header .hMenu .menu .depth1 > li{float: left; position: relative;}
+.header .hMenu .menu .depth1 > li > .dth1{display: block;line-height: 80px;padding: 0 10px;color: #292929; font-size: 20px;font-weight: 600; margin-right: 85px;position: relative;}
+.header .hMenu .menu .depth1 > li:hover > .dth1::after {content: "";width: 100%; height: 3px; background-color: #f5bd43; position: absolute;left: 0;bottom: -3px; z-index: 2
+    /* 노란색 바를 내리기위해 top이 아닌 bottom으로 속성을 주었음, after를 줄 때는 content와 display를 주는게 맞지만, position 또는 float을 주면 display가 저절로 block으로 되기 때문에 안써도됨. */
+}
+.header .hMenu .menu .depth1 > li:last-child > .dth1{margin-right: 0;}
+.header .hMenu .menu .depth2 {position: absolute; left: 50%;top: 80px;width: 100%;transform: translateX(-50%);display: none;}
+/* left로 50%로 갔다가 translatex로 50% 왼쪽으로 다시 가서 중심을 맞춤 */
+.header.open .hMenu .menu .depth2 {display: block;}
+.header .hMenu .menu .depth2 > li{margin-top: 15px;}
+.header .hMenu .menu .depth2 > li > .dth2{display:inline-block;line-height: 1.6; border-bottom: 1px solid transparent;}
+/* hover를 줄때 높이차이가 나지 않도록 투명한 밑줄을 그음 ,block은 가로 길이가 100%이지만 inline-block은 가로길이가 auto로 잡힘*/
+.header .hMenu .menu .depth2 > li:hover > .dth2 {border-bottom: 1px solid #333; color: #000;white-space: no-wrap;
+    /* white-space:줄바꿈없이하는거. */
+}
+
+.header .util { float: right;font-size: 0;}
+.header .util > a {display: inline-block;width: 80px; line-height: 34px;border-radius: 48px; font-size: 13px; font-weight: 600;color: #fff; text-align: center;}
+.header .util .renter{background-color: #db0007;}
+.header .util .recruit{background-color: #241909;margin-left: 8px;}
+.header .util .lang{background-color: #264a36;margin-left: 8px;}
+.header .util .topSearch{display: inline-block; }
+.header .util .topSearch .srch{width: 36px; height: 36px; margin: 26px; text-indent: -9999px; background: url(../images/ico_search.png) no-repeat center center;
+   
+}
+/* div는 block이기 때문에 밑으로 내려가니깐 나란히 놓기 위해 inline-block으로 바꿈 */
+
+.topSearch .srchField {position: fixed; width: 1168px;  left: 50%; top: 80px; transform: translateX(-50%);
+     z-index: 9999;text-align: center;display: none;}
+
+.topSearch.open .srchField {display: block;}
+
+.topSearch .dimmed {position: fixed;left: 0;top: 0;width: 100%;height: 100%;
+        background-color: rgba(0,0,0,0.8);  display: none;}
+
+.topSearch.open .dimmed {display: block;}
+.topSearch .srchField .sch input[type="text"] {width: 984px ;height: 70px;border-radius: 35px; padding: 0 38px;box-sizing: border-box; border: solid 1px #d1d1d1;color: #292929;font-size: 18px; }
+.topSearch .srchField .sch .btnM {width: 172px; height: 70px; border-radius: 35px; font-size: 15px;margin-left: 12px;}
+.topSearch .srchField .sch .btnMC {background-color: #ffbc0d; color: #292929; font-weight: 600;}
+.topSearch .srchField .close {margin-top: 100px;
+    width: 90px; height: 90px; text-indent: -9999px; background: url(../images/btn_close.png) no-repeat center center;
+}
+
+/* input type의 종류는 많기 때문에 css 줄 때 type을 대괄호안에 넣어서 쓰면 정확도가 높아짐 */
+
+
+/* 맥도날드 라이브 영역 */
+.contArea {padding: 30px 0 60px ;}
+.mainCont {background-color: #c8c8c8;}
+.mainCont .titMain{ margin-bottom: 60px;color: #292929;font-size: 40px;font-weight: 600;line-height:1;}
+.mainCont  .whatsNew {margin-left: -35px; margin-bottom: -35px;}
+/* 음수마진으로 인해 음수방향으로 공간이 늘어나서 사진이 들어가게됨 */
+.mainCont  .whatsNew::after {content: "";display: block;clear: both;}
+.mainCont  .whatsNew li {height: 438px;float: left; margin:0 0 35px 35px;}
+.mainCont .whatsNew li a { overflow: hidden;
+    background-color: #fff; height: 100%; 
+    /* height가 100%이기 때문에 li의 높이 438을 다 받아옴 */
+    display: block;border-radius: 10px;box-shadow: 0 3px 4px 0 rgba(0,0,0,0.1);}
+.mainCont .whatsNew li a .con{padding: 24px 30px;}
+.mainCont .whatsNew li a .con .tit{display: block; width: 306px;
+    white-space: nowrap; text-overflow: ellipsis; overflow: hidden;
+    /* white space는 줄바꿈이 안일어나게 하는것.text-overflow는 넘어간 글씨가 안보이게 하고 ...말줄임표 보이게 하는 것 */
+    color: #292929; font-size: 18px;line-height: 1.7; font-weight: 500;}
+
+/* 푸터영역 */
+.footer{font-size: 14px; line-height: 1.6;background-color: #292929; color: #fff;}
+.footer .footArea{padding: 45px 0 55px; }
+.footer .footArea::after{content: ""; display: block;clear: both;}
+.footer .fUtill{float: left;width: 190px;}
+.footer .fUtill li + li{margin-top: 5px;}
+/* 1번째것만 제외하고 2번째거부터 시작한다는 뜻이 li+li , */
+.footer .fUtill .privacy {color: yellow;}
+.footer .fSns {float: right;}
+.footer .fSns li {float: left;}
+.footer .fSns li + li {margin-left: 20px;}
+.footer .fSns li a {display: block; width: 48px;height: 40px; }
+.footer .fSns li a span {display: block;text-indent: -9999px; }
+/* textindent는 display block으로 만들고 나서 해야 적용가능함. */
+.footer .fSns li .fb {background: url(../images/ico_sns.png) no-repeat 0 0;}
+.footer .fSns li .ig {background: url(../images/ico_sns.png)no-repeat 0 -40px;}
+.footer .fSns li .yt {background: url(../images/ico_sns.png) no-repeat 0 -80px;}
+.footer .fSns li .ks {background: url(../images/ico_sns.png) no-repeat 0 -120px;}
+.footer .fSns li .web {width: 100px;height: auto;}
+.footer .fSns li img {width: 100%;}
+.footer .fInfo {float: left;font-weight: 400;opacity: 0.6;}
+.footer .fInfo .info li + li {margin-top: 5px;}
+.footer .fInfo .copy  {margin-top: 5px;}
+/* 고정메뉴 영역 */
+.aside {position: fixed; bottom: 110px;left: 49%;margin-left: 635px; z-index: 10;display: none;}
+.aside a {display: block;width: 121px;height: 121px;}
+.aside a span{display: block; text-indent: -9999px;}
+.aside .goStory {background: url(../images/sidebtn_story_01.png)no-repeat center top;}
+.aside .goDelivery {background: url(../images/sidebtn_delivery_02.png) no-repeat 50% top;}
+.aside .btnTop {position: absolute; left: 50%; transform: translateX(-50%);background: url(../images/sidebtn_top_04top.png) no-repeat 0 14px; width: 51px ; height: 48px;}
+    /* fixed가 걸린 aside를 기준으로 absolute가 걸림 */
+.aside .btnTop span {text-indent: -9999px; display: block;}
+
+.mainSlide {margin-top: 80px;}
+.mainSlide .swiper-button-next {background-color: #264a36;right: 0 ;width: 90px; height: 90px;background:url(../images/bg_swiper_new.png)no-repeat 0 -90px;}
+.mainSlide .swiper-button-next::after {display: none;}
+.mainSlide .swiper-button-prev {background-color: #264a36;left: 0;width: 90px; height: 90px;background: url(../images/bg_swiper_new.png)no-repeat 0 0 ;}
+.mainSlide .swiper-button-prev::after{display: none;}
+
